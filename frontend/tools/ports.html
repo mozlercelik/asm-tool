@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Port Discovery - ASM Tool</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <a href="/" class="logo">ASM Tool</a>
+            <ul class="nav-links">
+                <li><a href="/tools/technologies">Technology Detection</a></li>
+                <li><a href="/tools/dns">DNS Records</a></li>
+                <li><a href="/tools/subdomains">Subdomain Discovery</a></li>
+                <li><a href="/tools/whois">Whois Records</a></li>
+                <li><a href="/tools/ports">Port Discovery</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <div class="tool-header">
+            <div class="tool-icon">
+                <i class="fas fa-plug"></i>
+            </div>
+            <h1>Port Discovery</h1>
+            <p class="tool-description">Scan and identify open ports on target systems</p>
+        </div>
+
+        <div class="tool-content">
+            <div class="input-section">
+                <input type="text" id="target" placeholder="Enter target IP or domain (e.g., 192.168.1.1)" required>
+                <div class="port-range">
+                    <input type="number" id="start-port" placeholder="Start Port" min="1" max="65535" value="1">
+                    <span>to</span>
+                    <input type="number" id="end-port" placeholder="End Port" min="1" max="65535" value="1024">
+                </div>
+                <button id="start-scan" class="primary-button">
+                    <i class="fas fa-search"></i> Start Scan
+                </button>
+            </div>
+
+            <div class="results-section">
+                <div class="loading" id="loading" style="display: none;">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>Scanning in progress...</p>
+                </div>
+                <div id="results" class="results-container">
+                    <div class="ports-summary">
+                        <div class="summary-item">
+                            <span class="label">Total Ports Scanned:</span>
+                            <span class="value" id="total-ports">0</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="label">Open Ports:</span>
+                            <span class="value" id="open-ports">0</span>
+                        </div>
+                    </div>
+                    <div class="ports-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Port</th>
+                                    <th>Status</th>
+                                    <th>Service</th>
+                                    <th>Protocol</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ports-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 ASM Tool. All rights reserved.</p>
+    </footer>
+    <script src="../script.js"></script>
+</body>
+</html> 

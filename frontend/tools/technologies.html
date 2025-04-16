@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Technology Detection - ASM Tool</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <a href="/" class="logo">ASM Tool</a>
+            <ul class="nav-links">
+                <li><a href="/tools/technologies">Technology Detection</a></li>
+                <li><a href="/tools/dns">DNS Records</a></li>
+                <li><a href="/tools/subdomains">Subdomain Discovery</a></li>
+                <li><a href="/tools/whois">Whois Records</a></li>
+                <li><a href="/tools/ports">Port Discovery</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <div class="tool-header">
+            <div class="tool-icon">
+                <i class="fas fa-microchip"></i>
+            </div>
+            <h1>Technology Detection</h1>
+            <p class="tool-description">Detect technologies used by websites and web applications</p>
+        </div>
+
+        <div class="tool-content">
+            <div class="input-section">
+                <input type="text" id="target" placeholder="Enter target domain (e.g., example.com)" required>
+                <button id="start-scan" class="primary-button">
+                    <i class="fas fa-search"></i> Start Scan
+                </button>
+            </div>
+
+            <div class="results-section">
+                <div class="loading" id="loading" style="display: none;">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>Scanning in progress...</p>
+                </div>
+                <div id="results" class="results-container">
+                    <div class="results-grid" id="technologies-grid"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 ASM Tool. All rights reserved.</p>
+    </footer>
+    <script src="../script.js"></script>
+</body>
+</html> 
