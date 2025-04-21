@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Subdomain Discovery - ASM Tool</title>
-    <link rel="stylesheet" href="../styles.css">
+    <title>TOOL_NAME - ASM Tool</title>
+    <link rel="stylesheet" href="../../styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
@@ -24,15 +24,15 @@
     <main class="container">
         <div class="tool-header">
             <div class="tool-icon">
-                <i class="fas fa-sitemap"></i>
+                <i class="TOOL_ICON"></i>
             </div>
-            <h1>Subdomain Discovery</h1>
-            <p class="tool-description">Discover subdomains associated with a domain</p>
+            <h1>TOOL_NAME</h1>
+            <p class="tool-description">TOOL_DESCRIPTION</p>
         </div>
 
         <div class="tool-content">
             <div class="input-section">
-                <input type="text" id="target" placeholder="Enter target domain (e.g., example.com)" required>
+                <input type="text" id="target" placeholder="Enter target domain or IP" required>
                 <button id="start-scan" class="primary-button">
                     <i class="fas fa-search"></i> Start Scan
                 </button>
@@ -43,26 +43,7 @@
                     <i class="fas fa-spinner fa-spin"></i>
                     <p>Scanning in progress...</p>
                 </div>
-                <div id="results" class="results-container">
-                    <div class="subdomains-list">
-                        <div class="subdomains-header">
-                            <h3>Discovered Subdomains</h3>
-                            <span class="subdomains-count" id="subdomains-count">0 subdomains found</span>
-                        </div>
-                        <div class="subdomains-table">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Subdomain</th>
-                                        <th>IP Address</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="subdomains-body"></tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+                <div id="results" class="results-container"></div>
             </div>
         </div>
     </main>
@@ -70,6 +51,6 @@
     <footer>
         <p>&copy; 2025 ASM Tool. All rights reserved.</p>
     </footer>
-    <script src="../script.js"></script>
+    <script src="../../script.js"></script>
 </body>
 </html> 
