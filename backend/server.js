@@ -123,11 +123,46 @@ app.get('/api/tools/technologies', async (req, res) => {
         return res.status(400).json({ error: 'Target is required' });
     }
 
+    // Set timeout for the entire request
+    req.setTimeout(5000, () => {
+        res.status(504).json({ 
+            error: 'Gateway Timeout',
+            message: 'The request took too long to complete'
+        });
+    });
+
     try {
-        const techInfo = await identifyTechnologies(target);
-        res.json(techInfo);
+        const technologies = await identifyTechnologies(target);
+        
+        // Set headers to prevent caching
+        res.set({
+            'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+            'Pragma': 'no-cache',
+            'Expires': '0'
+        });
+        
+        res.json({ 
+            result: { 
+                technologies 
+            } 
+        });
     } catch (error) {
-        res.status(500).json({ msg: 'An error occurred while detecting technologies', error: error });
+        if (error.message.includes('timeout')) {
+            return res.status(504).json({ 
+                error: 'Gateway Timeout',
+                message: error.message
+            });
+        }
+        if (error.message.includes('refused')) {
+            return res.status(503).json({ 
+                error: 'Service Unavailable',
+                message: error.message
+            });
+        }
+        res.status(500).json({ 
+            error: 'Technology detection failed',
+            message: error.message 
+        });
     }
 });
 
