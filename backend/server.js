@@ -2,7 +2,6 @@ const express = require('express');
 const { getSecurityTrailsDNSRecords } = require('./scan/dns');
 const { discoverSubdomains } = require('./scan/subdomains');
 const { checkOpenPorts } = require('./scan/ports');
-const { identifyTechnologies } = require('./scan/technologies');
 const { getWhoisInfo } = require('./scan/whois');
 const { getDNSRecords } = require('./scan/dns');
 
@@ -33,14 +32,12 @@ app.post('/api/scan', async (req, res) => {
         // const dnsRecords = await getDNSRecords(target);
         const subdomains = await discoverSubdomains(target);
         const openPorts = await checkOpenPorts(target, [80, 443, 8080]); // Example ports
-        const technologies = await identifyTechnologies(target);
         const whoisInfo = await getWhoisInfo(target); // Get WHOIS info
 
         const scanResults = {
             // dnsRecords,
             subdomains,
             openPorts,
-            technologies,
             whoisInfo
         };
 
@@ -112,57 +109,6 @@ app.get('/api/tools/subdomains', async (req, res) => {
         res.status(200).json(subdomains);
     } catch (error) {
         res.status(500).json({ msg: 'An error occurred while discovering subdomains', error: error });
-    }
-});
-
-// New endpoint for technology detection
-app.get('/api/tools/technologies', async (req, res) => {
-    const { target } = req.query;
-
-    if (!target) {
-        return res.status(400).json({ error: 'Target is required' });
-    }
-
-    // Set timeout for the entire request
-    req.setTimeout(5000, () => {
-        res.status(504).json({ 
-            error: 'Gateway Timeout',
-            message: 'The request took too long to complete'
-        });
-    });
-
-    try {
-        const technologies = await identifyTechnologies(target);
-        
-        // Set headers to prevent caching
-        res.set({
-            'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
-            'Pragma': 'no-cache',
-            'Expires': '0'
-        });
-        
-        res.json({ 
-            result: { 
-                technologies 
-            } 
-        });
-    } catch (error) {
-        if (error.message.includes('timeout')) {
-            return res.status(504).json({ 
-                error: 'Gateway Timeout',
-                message: error.message
-            });
-        }
-        if (error.message.includes('refused')) {
-            return res.status(503).json({ 
-                error: 'Service Unavailable',
-                message: error.message
-            });
-        }
-        res.status(500).json({ 
-            error: 'Technology detection failed',
-            message: error.message 
-        });
     }
 });
 
